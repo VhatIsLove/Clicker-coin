@@ -1,6 +1,35 @@
 const $circle = document.querySelector('#circle')
 const $score = document.querySelector('#score')
 
+function start(){
+	setScore(getScore())
+	setImage()
+}
+
+function setScore(score) {
+	localStorage.setItem('score', score) // записываем счет в localStorage
+	$score.textContent = score // выводим текущий счет на экран
+}
+
+function getScore() {
+	return Number(localStorage.getItem('score')) ?? 0; // возвращает счет из localStorage
+}
+
+// отвечает за то что бы счет отображался корректно
+function addOne() {
+	setScore(getScore() + 1)
+	setImage()
+}
+
+//отвечает за изменение изображения при достяжении необходимого числа
+
+function setImage(){
+	if(getScore() >= 50){
+		$circle.setAttribute('src', './assets/dragon.png')
+	}
+}
+
+
 $circle.addEventListener('click', (e) => {
 	const rect = $circle.getBoundingClientRect() // получаем размеры элемента по которому кликаем
 	
@@ -32,7 +61,11 @@ $circle.addEventListener('click', (e) => {
 
 	$circle.parentElement.appendChild(plusOne) // добавляем в DOM нашь элемент
 
+	addOne()
+
 	setTimeout(() => {
 		plusOne.remove() // удаляем элемент
 	}, 500)
 })
+
+start()

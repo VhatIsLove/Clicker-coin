@@ -71,6 +71,6 @@ body{
 	}
 	100% {
 		opacity: 0;
-		transform: translateY(-60px);
+		transform: translateY(-100%);
 	}
 }
